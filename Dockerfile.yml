@@ -1,0 +1,27 @@
+FROM php:8.2-cli
+
+RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && apt-get install -y git
+
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv ~/.symfony5/bin/symfony /usr/local/bin/symfony
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+WORKDIR /var/www/html
+
+COPY ./symfony/ .
+
+RUN composer install
+
+RUN chown -R www-data:www-data var/
+RUN chmod -R 777 var/
+
+RUN touch .env && \
+echo "APP_ENV=${APP_ENV}" >> .env && \
+echo "APP_SECRET=${APP_SECRET}" >> .env && \
+echo "DATABASE_URL=${DATABASE_URL}" >> .env
+
+EXPOSE 8000
+
+CMD ["symfony", "serve", "--port=8000", "--allow-http", "--listen-ip=0.0.0.0"]
