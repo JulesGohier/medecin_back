@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+
+use ApiPlatform\Metadata\ApiResource;
 use App\Enum\Sexe;
 use App\Repository\PatientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: PatientRepository::class)]
 class Patient
 {
@@ -32,7 +35,7 @@ class Patient
     #[ORM\ManyToOne(inversedBy: 'patients')]
     private ?Medecin $medecin_perso = null;
 
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $num_tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -43,6 +46,9 @@ class Patient
      */
     #[ORM\OneToMany(targetEntity: RendezVous::class, mappedBy: 'id_patient', orphanRemoval: true)]
     private Collection $Rdv;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_naissance = null;
 
     public function __construct()
     {
@@ -164,6 +170,18 @@ class Patient
                 $rdv->setIdPatient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->date_naissance;
+    }
+
+    public function setDateNaissance(?\DateTimeInterface $date_naissance): static
+    {
+        $this->date_naissance = $date_naissance;
 
         return $this;
     }

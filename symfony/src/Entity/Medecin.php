@@ -7,7 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
 class Medecin
 {
@@ -25,7 +27,7 @@ class Medecin
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $num_rpps = null;
 
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $num_tel = null;
 
     /**
