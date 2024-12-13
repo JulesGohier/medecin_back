@@ -13,13 +13,11 @@ class RendezVousFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // On récupère les références des médecins et patients créés
         $medecin1 = $manager->getRepository(Medecin::class)->find(1);
         $medecin2 = $manager->getRepository(Medecin::class)->find(2);
         $patient1 = $manager->getRepository(Patient::class)->find(1);
         $patient2 = $manager->getRepository(Patient::class)->find(2);
         
-        // Création de 3 rendez-vous
         $rendezVous1 = new RendezVous();
         $rendezVous1->setIdMedecin($medecin1)
                     ->setIdPatient($patient1)
@@ -38,12 +36,10 @@ class RendezVousFixtures extends Fixture
                     ->setDate(new \DateTime('2024-12-17 16:00:00'))
                     ->setState(State::PASSE);
 
-        // Persister les rendez-vous
         $manager->persist($rendezVous1);
         $manager->persist($rendezVous2);
         $manager->persist($rendezVous3);
-
-        // Sauvegarde en base de données
+        
         $manager->flush();
     }
 }

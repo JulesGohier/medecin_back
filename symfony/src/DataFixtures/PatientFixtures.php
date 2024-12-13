@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Patient;
+use App\Entity\Medecin;
 use App\Enum\Sexe;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -11,9 +12,12 @@ class PatientFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // Création de 3 patients
+
+        $medecin1 = $manager->getRepository(Medecin::class)->find(1);
+        $medecin2 = $manager->getRepository(Medecin::class)->find(2);
         $patient1 = new Patient();
         $patient1->setNom("Durand")
+                 ->setMedecinPerso($medecin1)
                  ->setPrenom("Jean")
                  ->setSexe(Sexe::HOMME)
                  ->setNumSecuSociale("1234567890123")
@@ -22,6 +26,7 @@ class PatientFixtures extends Fixture
 
         $patient2 = new Patient();
         $patient2->setNom("Lefevre")
+                 ->setMedecinPerso($medecin1)
                  ->setPrenom("Claire")
                  ->setSexe(Sexe::FEMME)
                  ->setNumSecuSociale("2345678901234")
@@ -31,6 +36,7 @@ class PatientFixtures extends Fixture
         $patient3 = new Patient();
         $patient3->setNom("Bertin")
                  ->setPrenom("Paul")
+                 ->setMedecinPerso($medecin2)
                  ->setSexe(Sexe::HOMME)
                  ->setNumSecuSociale("3456789012345")
                  ->setNumTel("0623456789")
