@@ -13,10 +13,10 @@ class RendezVousFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $medecin1 = $manager->getRepository(Medecin::class)->find(1);
-        $medecin2 = $manager->getRepository(Medecin::class)->find(2);
-        $patient1 = $manager->getRepository(Patient::class)->find(1);
-        $patient2 = $manager->getRepository(Patient::class)->find(2);
+        $medecin1 = $manager->getRepository(Medecin::class)->findFirstMedecin();
+        $medecin2 = $manager->getRepository(Medecin::class)->findLastMedecin();
+        $patient1 = $manager->getRepository(Patient::class)->findFirstPatient();
+        $patient2 = $manager->getRepository(Patient::class)->findLastPatient();
         
         $rendezVous1 = new RendezVous();
         $rendezVous1->setIdMedecin($medecin1)

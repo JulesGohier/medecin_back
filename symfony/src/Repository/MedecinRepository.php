@@ -16,6 +16,34 @@ class MedecinRepository extends ServiceEntityRepository
         parent::__construct($registry, Medecin::class);
     }
 
+    /**
+     * Récupère le premier médecin de la base de données.
+     *
+     * @return Medecin|null Retourne le premier médecin ou null si aucun médecin n'existe.
+     */
+    public function findFirstMedecin(): ?Medecin
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * Récupère le dernier médecin de la base de données.
+     *
+     * @return Medecin|null Retourne le dernier médecin ou null si aucun médecin n'existe.
+     */
+    public function findLastMedecin(): ?Medecin
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Medecin[] Returns an array of Medecin objects
 //     */

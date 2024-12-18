@@ -16,6 +16,34 @@ class PatientRepository extends ServiceEntityRepository
         parent::__construct($registry, Patient::class);
     }
 
+        /**
+     * Récupère le premier patient de la base de données.
+     *
+     * @return Patient|null Retourne le premier patient ou null si aucun patient n'existe.
+     */
+    public function findFirstPatient(): ?Patient
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * Récupère le dernier patient de la base de données.
+     *
+     * @return Patient|null Retourne le dernier patient ou null si aucun patient n'existe.
+     */
+    public function findLastPatient(): ?Patient
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Patient[] Returns an array of Patient objects
 //     */
