@@ -9,10 +9,11 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
-        api_user_provider:
-            entity:
-                class: App\Entity\User
-                property: api_token
+
+    #    api_user_provider:
+     #       entity:
+      #          class: App\Entity\User
+       #         property: api_token
     firewalls:
         login:
             pattern: ^/api/login
@@ -22,6 +23,12 @@ security:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~ 
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -34,13 +41,7 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-        api:
-            pattern: ^/api/
-            provider: api_user_provider
-            custom_authenticator: App\Security\ApiKeyAuthenticator
-            stateless: true
-            lazy: true
-            entry_point: App\Security\ApiKeyAuthenticator
+        
             
 
     # Easy way to control access for large sections of your site
@@ -49,7 +50,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
-        - { path: ^/api/test, roles: IS_AUTHENTICATED_FULLY }        
+        - { path: ^/api/test, roles: ROLE_MEDECIN }        
         - { path: ^/api/login, roles: PUBLIC_ACCESS }  # Autoriser tout le monde à accéder à /api/login
         - { path: ^/api/register, roles: PUBLIC_ACCESS }  # Autoriser l'enregistrement des utilisateurs
         - { path: ^/api/patients, roles: IS_AUTHENTICATED_FULLY }  # Restreindre l'accès aux autres routes API aux utilisateurs authentifiés

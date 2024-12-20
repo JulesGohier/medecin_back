@@ -8,12 +8,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/api/login_check', name: 'api_login_check')]
-    public function index()
-    {
-
-    }
-
     #[Route('/api/test', name: 'api_test')]
     public function test(): Response
     {

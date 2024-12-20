@@ -8,3 +8,6 @@ api_medecins:
     path: /api/medecins
     controller: App\Controller\Api\MedecinController::getMedecins
     methods: GET
+    
+api_login_check:
+    path: /api/login_check
