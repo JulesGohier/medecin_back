@@ -22,7 +22,10 @@ class PatientFixtures extends Fixture
                  ->setSexe(Sexe::HOMME)
                  ->setNumSecuSociale("1234567890123")
                  ->setNumTel("0601020304")
-                 ->setDateNaissance(new \DateTime('1990-05-15'));
+                 ->setDateNaissance(new \DateTime('1990-05-15'))
+                 ->SetUsername("patient1")
+                 ->setPassword("test")
+                 ->setRoles(['ROLE_PATIENT']);
 
         $patient2 = new Patient();
         $patient2->setNom("Lefevre")
@@ -31,7 +34,10 @@ class PatientFixtures extends Fixture
                  ->setSexe(Sexe::FEMME)
                  ->setNumSecuSociale("2345678901234")
                  ->setNumTel("0612345678")
-                 ->setDateNaissance(new \DateTime('1985-11-22'));
+                 ->setDateNaissance(new \DateTime('1985-11-22'))
+                 ->SetUsername("patient2")
+                 ->setPassword("test")
+                 ->setRoles(['ROLE_PATIENT']);
 
         $patient3 = new Patient();
         $patient3->setNom("Bertin")
@@ -40,7 +46,10 @@ class PatientFixtures extends Fixture
                  ->setSexe(Sexe::HOMME)
                  ->setNumSecuSociale("3456789012345")
                  ->setNumTel("0623456789")
-                 ->setDateNaissance(new \DateTime('1992-01-30'));
+                 ->setDateNaissance(new \DateTime('1992-01-30'))
+                 ->SetUsername("patient3")
+                 ->setPassword("test")
+                 ->setRoles(['ROLE_PATIENT']);
 
         // Persister les patients
         $manager->persist($patient1);

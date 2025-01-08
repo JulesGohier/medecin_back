@@ -4,9 +4,17 @@ namespace App\DataFixtures;
 use App\Entity\Medecin;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MedecinFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordHasherInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Création de 3 médecins
@@ -14,19 +22,28 @@ class MedecinFixtures extends Fixture
         $medecin1->setNom("Dupont")
                  ->setPrenom("Pierre")
                  ->setNumRpps("123456789012")
-                 ->setNumTel("0123456789");
+                 ->setNumTel("0123456789")
+                 ->SetUsername("medecin1")
+                 ->setPassword($this->passwordEncoder->hashPassword($medecin1, 'password123'))
+                 ->setRoles(['ROLE_MEDECIN']);
 
         $medecin2 = new Medecin();
         $medecin2->setNom("Martin")
                  ->setPrenom("Marie")
                  ->setNumRpps("987654321098")
-                 ->setNumTel("0987654321");
+                 ->setNumTel("0987654321")
+                 ->SetUsername("medecin2")
+                 ->setPassword($this->passwordEncoder->hashPassword($medecin2, 'password123'))
+                 ->setRoles(['ROLE_MEDECIN']);
 
         $medecin3 = new Medecin();
         $medecin3->setNom("Lemoine")
                  ->setPrenom("Luc")
                  ->setNumRpps("112233445566")
-                 ->setNumTel("0147258364");
+                 ->setNumTel("0147258364")
+                 ->SetUsername("medecin3")
+                 ->setPassword($this->passwordEncoder->hashPassword($medecin3, 'password123'))
+                 ->setRoles(['ROLE_MEDECIN']);
 
         // Persist each Medecin
         $manager->persist($medecin1);

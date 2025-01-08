@@ -9,5 +9,5 @@ api_medecins:
     controller: App\Controller\Api\MedecinController::getMedecins
     methods: GET
     
-api_login_check:
-    path: /api/login_check
+api_login_token:
+    path: /api/login_token

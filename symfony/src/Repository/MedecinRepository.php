@@ -44,6 +44,15 @@ class MedecinRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findByRpps(string $rpps): ?Medecin
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.num_rpps = :rpps')
+            ->setParameter('rpps', $rpps)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Medecin[] Returns an array of Medecin objects
 //     */

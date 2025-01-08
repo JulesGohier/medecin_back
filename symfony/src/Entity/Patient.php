@@ -6,6 +6,8 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Enum\Sexe;
 use App\Repository\PatientRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -13,12 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: PatientRepository::class)]
-class Patient
+class Patient implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $num_secu_sociale = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -29,10 +30,8 @@ class Patient
     #[ORM\Column(enumType: Sexe::class)]
     private ?Sexe $sexe = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $num_secu_sociale = null;
-
-    #[ORM\ManyToOne(inversedBy: 'patients')]
+    #[ORM\ManyToOne(targetEntity: Medecin::class, inversedBy: 'patients')]
+    #[ORM\JoinColumn(name: 'medecin_perso_num_rpps', referencedColumnName: 'num_rpps', nullable: true)]
     private ?Medecin $medecin_perso = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
@@ -44,20 +43,27 @@ class Patient
     /**
      * @var Collection<int, RendezVous>
      */
-    #[ORM\OneToMany(targetEntity: RendezVous::class, mappedBy: 'id_patient', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: RendezVous::class, mappedBy: 'num_secu_sociale_patient', orphanRemoval: true)]
     private Collection $Rdv;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_naissance = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->Rdv = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getNom(): ?string
@@ -182,6 +188,73 @@ class Patient
     public function setDateNaissance(?\DateTimeInterface $date_naissance): static
     {
         $this->date_naissance = $date_naissance;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+           /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
+    
+        /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }

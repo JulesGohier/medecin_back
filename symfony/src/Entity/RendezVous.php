@@ -17,12 +17,14 @@ class RendezVous
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Rdv')]
-    private ?Medecin $id_medecin = null;
+    #[ORM\ManyToOne(targetEntity: Medecin::class, inversedBy: 'Rdv')]
+    #[ORM\JoinColumn(name: 'rpps_medecin', referencedColumnName: 'num_rpps', nullable: false)]
+    private ?Medecin $rpps_medecin = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Rdv')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Patient $id_patient = null;
+    #[ORM\ManyToOne(targetEntity: Patient::class, inversedBy: 'Rdv')]
+    #[ORM\JoinColumn(name: 'patient_num_secu_sociale', referencedColumnName: 'num_secu_sociale', nullable: false)]
+    private ?Patient $num_secu_sociale_patient = null;
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
@@ -37,24 +39,24 @@ class RendezVous
 
     public function getIdMedecin(): ?Medecin
     {
-        return $this->id_medecin;
+        return $this->rpps_medecin;
     }
 
-    public function setIdMedecin(?Medecin $id_medecin): static
+    public function setIdMedecin(?Medecin $rpps_medecin): static
     {
-        $this->id_medecin = $id_medecin;
+        $this->rpps_medecin = $rpps_medecin;
 
         return $this;
     }
 
     public function getIdPatient(): ?Patient
     {
-        return $this->id_patient;
+        return $this->num_secu_sociale_patient;
     }
 
-    public function setIdPatient(?Patient $id_patient): static
+    public function setIdPatient(?Patient $num_secu_sociale_patient): static
     {
-        $this->id_patient = $id_patient;
+        $this->num_secu_sociale_patient = $num_secu_sociale_patient;
 
         return $this;
     }

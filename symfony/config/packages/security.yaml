@@ -5,11 +5,19 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_patient_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Patient
+                property: username
+        
+        app_medecin_provider:
+            entity:
+                class: App\Entity\Medecin
                 property: username
 
+        app_users:
+            chain:
+                providers: ['app_patient_provider', 'app_medecin_provider']
     #    api_user_provider:
      #       entity:
       #          class: App\Entity\User
@@ -18,9 +26,9 @@ security:
         login:
             pattern: ^/api/login
             stateless: true
-            provider: app_user_provider
+            provider: app_users
             json_login:
-                check_path: /api/login_check
+                check_path: /api/login_token
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
@@ -28,13 +36,15 @@ security:
             pattern: ^/api
             stateless: true
             jwt: ~ 
+            provider: app_users
 
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
             lazy: true
-            provider: app_user_provider
+            provider: app_users
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -49,7 +59,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login_token, roles: PUBLIC_ACCESS }
         - { path: ^/api/test, roles: ROLE_MEDECIN }        
         - { path: ^/api/login, roles: PUBLIC_ACCESS }  # Autoriser tout le monde à accéder à /api/login
         - { path: ^/api/register, roles: PUBLIC_ACCESS }  # Autoriser l'enregistrement des utilisateurs
