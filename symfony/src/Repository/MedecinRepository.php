@@ -24,7 +24,7 @@ class MedecinRepository extends ServiceEntityRepository
     public function findFirstMedecin(): ?Medecin
     {
         return $this->createQueryBuilder('m')
-            ->orderBy('m.id', 'ASC')
+            ->orderBy('m.num_rpps', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
@@ -38,7 +38,7 @@ class MedecinRepository extends ServiceEntityRepository
     public function findLastMedecin(): ?Medecin
     {
         return $this->createQueryBuilder('m')
-            ->orderBy('m.id', 'DESC')
+            ->orderBy('m.num_rpps', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

@@ -24,7 +24,7 @@ class PatientRepository extends ServiceEntityRepository
     public function findFirstPatient(): ?Patient
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.num_secu_sociale', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
@@ -38,7 +38,7 @@ class PatientRepository extends ServiceEntityRepository
     public function findLastPatient(): ?Patient
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'DESC')
+            ->orderBy('p.num_secu_sociale', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

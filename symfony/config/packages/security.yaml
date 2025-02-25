@@ -59,12 +59,11 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login_token, roles: PUBLIC_ACCESS }
-        - { path: ^/api/test, roles: ROLE_MEDECIN }        
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }  # Autoriser tout le monde à accéder à /api/login
-        - { path: ^/api/register, roles: PUBLIC_ACCESS }  # Autoriser l'enregistrement des utilisateurs
-        - { path: ^/api/patients, roles: IS_AUTHENTICATED_FULLY }  # Restreindre l'accès aux autres routes API aux utilisateurs authentifiés
-
+        - { path: ^/api/login_token, roles: PUBLIC_ACCESS }  
+        # - { path: ^/api/login, roles: PUBLIC_ACCESS } 
+        - { path: ^/api/register, roles: PUBLIC_ACCESS }  
+        - { path: ^/api/patients, roles: ROLE_MEDECIN }  
+        - { path: ^/api/medecins, roles: PUBLIC_ACCESS }
 
 when@test:
     security:
