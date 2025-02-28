@@ -19,7 +19,7 @@ WORKDIR /var/www/symfony/
 COPY ./symfony/ /var/www/symfony/
 
 RUN chmod +x /var/www/symfony/entrypoint.sh
-RUN composer install
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install
 
 RUN chown -R www-data:www-data var/ \
 && chmod -R 777 var/
