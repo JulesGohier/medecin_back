@@ -56,36 +56,44 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
   }
   ```
 
-### Register
-**POST** `api/register`
-- Inscription d'un utilisateur (patient ou médecin).
-- **Paramètres JSON :**
-  ```json
-  {
-      "type": "patient",
-      "username": "patient1",
-      "password": "password123",
-      "rpps_medecin": "18254763",
-      "nom": "DUPONT",
-      "prenom": "Jean",
-      "sexe": "homme",
-      "num_tel": "0789686352",
-      "date_naissance": "2004-04-06",
-      "num_secu_sociale": "125235438241",
-      "email": "jean.dupont@gmail.com"
-  }
-  ```
-  ou
-  ```json
-  {
-      "type": "medecin",
-      "username": "test3",
-      "password": "password123",
-      "prenom": "Arthur",
-      "num_rpps": "018254763",
-      "email": "jeanmi@du13.com"
-  }
-  ```
+## Register Patient  
+**POST** `api/register/patient`  
+- Inscription d'un utilisateur de type **Patient**.  
+- **Paramètres JSON :**  
+
+```json
+{
+    "username": "patient1",
+    "password": "password123",
+    "nom": "DUPONT",
+    "prenom": "Jean",
+    "sexe": "homme",
+    "num_tel": "0789686352",
+    "date_naissance": "2004-04-06",
+    "num_secu_sociale": "125235438241",
+    "email": "jean.dupont@gmail.com"
+}
+```
+
+---
+
+## Register Médecin  
+**POST** `api/register/medecin`  
+- Inscription d'un utilisateur de type **Médecin**.  
+- Accessible seulement avec le role **Admin**
+- **Paramètres JSON :**  
+
+```json
+{
+    "username": "test3",
+    "password": "password123",
+    "nom": "DURAND",
+    "prenom": "Arthur",
+    "num_rpps": "018254763",
+    "num_tel": "0612345678",
+    "email": "arthur.durand@medecin.com"
+}
+```
 
 ## Patients
 

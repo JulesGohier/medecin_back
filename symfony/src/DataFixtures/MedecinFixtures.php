@@ -19,13 +19,13 @@ class MedecinFixtures extends Fixture
     {
         // Création de 3 médecins
         $medecin1 = new Medecin();
-        $medecin1->setNom("Dupont")
-                 ->setPrenom("Pierre")
+        $medecin1->setNom("admin")
+                 ->setPrenom("admin")
                  ->setNumRpps("123456789012")
                  ->setNumTel("0123456789")
                  ->SetUsername("medecin1")
                  ->setPassword($this->passwordEncoder->hashPassword($medecin1, 'password123'))
-                 ->setRoles(['ROLE_MEDECIN']);
+                 ->setRoles(['ROLE_ADMIN']);
 
         $medecin2 = new Medecin();
         $medecin2->setNom("Martin")

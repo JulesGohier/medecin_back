@@ -53,7 +53,10 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
         
-            
+    role_hierarchy:
+        ROLE_MEDECIN: ROLE_USER
+        ROLE_PATIENT: ROLE_USER
+        ROLE_ADMIN: [ROLE_MEDECIN, ROLE_PATIENT, ROLE_USER]   
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
@@ -62,8 +65,9 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login_token, roles: PUBLIC_ACCESS }  
         # - { path: ^/api/login, roles: PUBLIC_ACCESS } 
-        - { path: ^/api/register, roles: PUBLIC_ACCESS }  
-        - { path: ^/api/patients, roles: ROLE_MEDECIN }  
+        - { path: ^/api/register/patient, roles: PUBLIC_ACCESS }
+        - { path: ^/api/register/medecin, roles: ROLE_ADMIN }
+        - { path: ^/api/patients, roles: ROLE_MEDECIN } 
         - { path: ^/api/medecins, roles: PUBLIC_ACCESS }
 
 when@test:

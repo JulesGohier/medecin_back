@@ -42,8 +42,9 @@ class CustomAuthenticator extends JsonLoginAuthenticator
         if (!$user instanceof UserInterface) {
             return new JsonResponse(['error' => 'Utilisateur non valide'], JsonResponse::HTTP_UNAUTHORIZED);
         }
-
+        
         $jwt = $this->jwtManager->create($user);
+
 
         return new JsonResponse([
             'token' => $jwt,
