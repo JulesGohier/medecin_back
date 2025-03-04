@@ -69,6 +69,7 @@ security:
         - { path: ^/api/register/medecin, roles: ROLE_ADMIN }
         - { path: ^/api/patients, roles: ROLE_MEDECIN } 
         - { path: ^/api/medecins, roles: PUBLIC_ACCESS }
+        - { path: ^/api/medecins/\d+$, methods: [PATCH, DELETE], roles: ROLE_ADMIN }
 
 when@test:
     security:
