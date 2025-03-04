@@ -7,9 +7,17 @@ use App\Entity\Medecin;
 use App\Enum\Sexe;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PatientFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordHasherInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
@@ -24,7 +32,7 @@ class PatientFixtures extends Fixture
                  ->setNumTel("0601020304")
                  ->setDateNaissance(new \DateTime('1990-05-15'))
                  ->SetUsername("patient1")
-                 ->setPassword("test")
+                 ->setPassword($this->passwordEncoder->hashPassword($patient1, 'password123'))
                  ->setRoles(['ROLE_PATIENT']);
 
         $patient2 = new Patient();
@@ -36,7 +44,7 @@ class PatientFixtures extends Fixture
                  ->setNumTel("0612345678")
                  ->setDateNaissance(new \DateTime('1985-11-22'))
                  ->SetUsername("patient2")
-                 ->setPassword("test")
+                 ->setPassword($this->passwordEncoder->hashPassword($patient2, 'password123'))
                  ->setRoles(['ROLE_PATIENT']);
 
         $patient3 = new Patient();
@@ -48,7 +56,7 @@ class PatientFixtures extends Fixture
                  ->setNumTel("0623456789")
                  ->setDateNaissance(new \DateTime('1992-01-30'))
                  ->SetUsername("patient3")
-                 ->setPassword("test")
+                 ->setPassword($this->passwordEncoder->hashPassword($patient3, 'password123'))
                  ->setRoles(['ROLE_PATIENT']);
 
         // Persister les patients
