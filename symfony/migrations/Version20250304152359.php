@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250304134042 extends AbstractMigration
+final class Version20250304152359 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,8 +20,8 @@ final class Version20250304134042 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE medecin (num_rpps BIGINT NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, email VARCHAR(255) DEFAULT NULL, specialite VARCHAR(255) NOT NULL, image VARCHAR(255) DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(num_rpps))');
-        $this->addSql('CREATE TABLE patient (num_secu_sociale VARCHAR(255) NOT NULL, medecin_perso_num_rpps BIGINT DEFAULT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, sexe VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, antecedent VARCHAR(255) DEFAULT NULL, date_naissance DATE DEFAULT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, email VARCHAR(255) DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(num_secu_sociale))');
+        $this->addSql('CREATE TABLE medecin (num_rpps BIGINT NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, email VARCHAR(255) DEFAULT NULL, specialite VARCHAR(255) NOT NULL, PRIMARY KEY(num_rpps))');
+        $this->addSql('CREATE TABLE patient (num_secu_sociale VARCHAR(255) NOT NULL, medecin_perso_num_rpps BIGINT DEFAULT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, sexe VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, antecedent VARCHAR(255) DEFAULT NULL, date_naissance DATE DEFAULT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, email VARCHAR(255) DEFAULT NULL, PRIMARY KEY(num_secu_sociale))');
         $this->addSql('CREATE INDEX IDX_1ADAD7EBC3F2D8EF ON patient (medecin_perso_num_rpps)');
         $this->addSql('CREATE TABLE rendez_vous (id SERIAL NOT NULL, rpps_medecin BIGINT NOT NULL, patient_num_secu_sociale VARCHAR(255) NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, state VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_65E8AA0A78519CAD ON rendez_vous (rpps_medecin)');

@@ -24,6 +24,7 @@ class MedecinFixtures extends Fixture
                  ->setNumRpps("123456789012")
                  ->setNumTel("0123456789")
                  ->SetUsername("medecin1")
+                 ->setSpecialite("Medecin Généraliste")
                  ->setPassword($this->passwordEncoder->hashPassword($medecin1, 'password123'))
                  ->setRoles(['ROLE_ADMIN']);
 
@@ -33,6 +34,7 @@ class MedecinFixtures extends Fixture
                  ->setNumRpps("987654321098")
                  ->setNumTel("0987654321")
                  ->SetUsername("medecin2")
+                 ->setSpecialite("Ostéopathe")
                  ->setPassword($this->passwordEncoder->hashPassword($medecin2, 'password123'))
                  ->setRoles(['ROLE_MEDECIN']);
 
@@ -42,6 +44,7 @@ class MedecinFixtures extends Fixture
                  ->setNumRpps("112233445566")
                  ->setNumTel("0147258364")
                  ->SetUsername("medecin3")
+                 ->setSpecialite("Ostéopathe")
                  ->setPassword($this->passwordEncoder->hashPassword($medecin3, 'password123'))
                  ->setRoles(['ROLE_MEDECIN']);
 

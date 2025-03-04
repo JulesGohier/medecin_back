@@ -56,15 +56,6 @@ class Medecin implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $specialite = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[Vich\UploadableField(mapping: 'medecin_images', fileNameProperty: 'image')]
-    private ?File $imageFile = null;
-
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
     
     public function __construct()
     {
@@ -257,29 +248,5 @@ class Medecin implements UserInterface, PasswordAuthenticatedUserInterface
         $this->specialite = $specialite;
 
         return $this;
-    }
-
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
-
-        if ($imageFile) {
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImage(?string $image): void
-    {
-        $this->image = $image;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
     }
 }
