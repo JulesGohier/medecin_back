@@ -76,6 +76,27 @@ class CustomAuthenticator extends JsonLoginAuthenticator
             $id = $user->getNumRpps(); // Récupérer le numéro RPPS pour un médecin
         } elseif ($user instanceof Patient) {
             $id = $user->getNumSecuSociale(); // Récupérer le numéro de sécurité sociale pour un patient
+
+            return new JsonResponse([
+                'token' => $jwt,
+                'roles' => $roles,
+                'patient' => [
+                    'num_secu_sociale' => $user->getNumSecuSociale(),
+                    'nom' => $user->getNom(),
+                    'prenom' => $user->getPrenom(),
+                    'sexe' => $user->getSexe()?->value,
+                    'medecin_perso' => $user->getMedecinPerso()?->getNumRpps(),
+                    'num_tel' => $user->getNumTel(),
+                    'antecedent' => $user->getAntecedent(),
+                    'date_naissance' => $user->getDateNaissance()?->format('Y-m-d'),
+                    'username' => $user->getUsername(),
+                    'email' => $user->getEmail(),
+                    'rendez_vous' => array_map(fn($rdv) => [
+                        'id' => $rdv->getId(),
+                        'date' => $rdv->getDate()->format('Y-m-d H:i:s'),
+                    ], $user->getRdv()->toArray())
+                ],
+            ]);
         }
 
         return new JsonResponse([

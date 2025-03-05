@@ -67,7 +67,7 @@ security:
         # - { path: ^/api/login, roles: PUBLIC_ACCESS } 
         - { path: ^/api/register/patient, roles: PUBLIC_ACCESS }
         - { path: ^/api/register/medecin, roles: ROLE_ADMIN }
-        - { path: ^/api/patients, roles: ROLE_MEDECIN } 
+        - { path: ^/api/patients, roles: [ROLE_MEDECIN, ROLE_PATIENT] } 
         - { path: ^/api/medecins, roles: PUBLIC_ACCESS }
         - { path: ^/api/medecins/\d+$, methods: [PATCH, DELETE], roles: ROLE_ADMIN }
 
