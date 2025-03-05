@@ -129,3 +129,63 @@ Les mêmes opérations que pour `api/patients` s'appliquent à `api/medecins`.
 
 ## Rendez-vous
 Les mêmes opérations que pour `api/patients` s'appliquent à `api/rendez_vouses`.
+
+# Nouvelles Routes pour les Rendez-vous
+
+## Récupérer les rendez-vous d'un patient par son numéro de sécurité sociale
+
+### GET `api/rendez_vouses/patient/{num_secu_sociale}`
+
+Renvoie l'ensemble des rendez-vous associés à un patient donné.
+
+**Paramètres :**
+
+- `num_secu_sociale` : Numéro de sécurité sociale du patient.
+
+**Exemple de réponse :**
+
+```json
+[
+    {
+        "id": 1,
+        "date": "2025-03-10T10:00:00",
+        "medecin": {
+            "id": 1,
+            "nom": "Lemoine",
+            "prenom": "Luc"
+        }
+    }
+]
+```
+
+---
+
+## Récupérer les rendez-vous d'un médecin par son numéro RPPS
+
+### GET `api/rendez_vouses/medecin/{num_rpps}`
+
+Renvoie l'ensemble des rendez-vous pris auprès d'un médecin spécifique.
+
+**Paramètres :**
+
+- `num_rpps` : Numéro RPPS du médecin.
+
+**Exemple de réponse :**
+
+```json
+[
+    {
+        "id": 1,
+        "date": "2025-03-10T10:00:00",
+        "patient": {
+            "id": 1,
+            "nom": "DUPONT",
+            "prenom": "Jean"
+        }
+    }
+]
+```
+
+---
+
+Ces nouvelles routes permettent d'améliorer l'accès aux rendez-vous en fonction du numéro de sécurité sociale du patient ou du numéro RPPS du médecin, optimisant ainsi la gestion et l'organisation des consultations.
