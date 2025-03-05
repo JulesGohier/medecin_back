@@ -36,20 +36,20 @@ class CustomAuthenticator extends JsonLoginAuthenticator
     {
         $credentials = json_decode($request->getContent(), true);
 
-        if (!$credentials || !isset($credentials['username'], $credentials['password'])) {
-            throw new AuthenticationException('Username et mot de passe requis.');
+        if (!$credentials || !isset($credentials['email'], $credentials['password'])) {
+            throw new AuthenticationException('Email et mot de passe requis.');
         }
 
         return new Passport(
-            new UserBadge($credentials['username'], function ($username) {
+            new UserBadge($credentials['email'], function ($email) {
                 // Rechercher d'abord un médecin
-                $medecin = $this->medecinRepository->findOneBy(['username' => $username]);
+                $medecin = $this->medecinRepository->findOneBy(['email' => $email]);
                 if ($medecin) {
                     return $medecin;
                 }
 
                 // Si ce n'est pas un médecin, chercher un patient
-                $patient = $this->patientRepository->findOneBy(['username' => $username]);
+                $patient = $this->patientRepository->findOneBy(['email' => $email]);
                 if ($patient) {
                     return $patient;
                 }
@@ -89,7 +89,7 @@ class CustomAuthenticator extends JsonLoginAuthenticator
                     'num_tel' => $user->getNumTel(),
                     'antecedent' => $user->getAntecedent(),
                     'date_naissance' => $user->getDateNaissance()?->format('Y-m-d'),
-                    'username' => $user->getUsername(),
+                    'email' => $user->getEmail(),
                     'email' => $user->getEmail(),
                     'rendez_vous' => array_map(fn($rdv) => [
                         'id' => $rdv->getId(),

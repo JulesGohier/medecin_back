@@ -8,12 +8,12 @@ security:
         app_patient_provider:
             entity:
                 class: App\Entity\Patient
-                property: username
+                property: email
         
         app_medecin_provider:
             entity:
                 class: App\Entity\Medecin
-                property: username
+                property: email
 
         app_users:
             chain:

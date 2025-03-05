@@ -21,8 +21,13 @@ class PatientFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        $medecin1 = $manager->getRepository(Medecin::class)->find(1);
-        $medecin2 = $manager->getRepository(Medecin::class)->find(2);
+        $medecin1 = $manager->getRepository(Medecin::class)->findFirstMedecin();
+        $medecin2 = $manager->getRepository(Medecin::class)->findLastMedecin();
+
+        if (!$medecin1 || !$medecin2) {
+            throw new \Exception('Les médecins n\'ont pas été trouvés.');
+        }
+        
         $patient1 = new Patient();
         $patient1->setNom("Durand")
                  ->setMedecinPerso($medecin1)
@@ -31,7 +36,7 @@ class PatientFixtures extends Fixture
                  ->setNumSecuSociale("1234567890123")
                  ->setNumTel("0601020304")
                  ->setDateNaissance(new \DateTime('1990-05-15'))
-                 ->SetUsername("patient1")
+                 ->SetEmail("patient1@patient.com")
                  ->setPassword($this->passwordEncoder->hashPassword($patient1, 'password123'))
                  ->setRoles(['ROLE_PATIENT']);
 
@@ -43,7 +48,7 @@ class PatientFixtures extends Fixture
                  ->setNumSecuSociale("2345678901234")
                  ->setNumTel("0612345678")
                  ->setDateNaissance(new \DateTime('1985-11-22'))
-                 ->SetUsername("patient2")
+                 ->SetEmail("patient2@patient.com")
                  ->setPassword($this->passwordEncoder->hashPassword($patient2, 'password123'))
                  ->setRoles(['ROLE_PATIENT']);
 
@@ -55,7 +60,7 @@ class PatientFixtures extends Fixture
                  ->setNumSecuSociale("3456789012345")
                  ->setNumTel("0623456789")
                  ->setDateNaissance(new \DateTime('1992-01-30'))
-                 ->SetUsername("patient3")
+                 ->SetEmail("patient3@patient.com")
                  ->setPassword($this->passwordEncoder->hashPassword($patient3, 'password123'))
                  ->setRoles(['ROLE_PATIENT']);
 

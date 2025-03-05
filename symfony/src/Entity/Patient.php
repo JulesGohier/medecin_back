@@ -52,16 +52,13 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $date_naissance = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column]
     private array $roles = [];
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $email = null;
 
 
     public function __construct()
@@ -195,14 +192,14 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getEmail(): ?string
     {
-        return $this->username;
+        return $this->email;
     }
 
-    public function setUsername(string $username): static
+    public function setEmail(string $email): static
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
@@ -238,7 +235,7 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
     
         /**
@@ -250,15 +247,5 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
 
-    public function setEmail(?string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
 }

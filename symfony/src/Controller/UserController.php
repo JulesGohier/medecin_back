@@ -23,11 +23,11 @@ class UserController extends AbstractController
     ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
-        if (!isset($data['username'], $data['password'], $data['nom'], $data['prenom'], $data['num_secu_sociale'], $data['sexe'])) {
+        if (!isset($data['email'], $data['password'], $data['nom'], $data['prenom'], $data['num_secu_sociale'], $data['sexe'])) {
             return new JsonResponse(['error' => "Tous les champs sont requis."], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        if ($entityManager->getRepository(Patient::class)->findOneBy(['username' => $data['username']])) {
+        if ($entityManager->getRepository(Patient::class)->findOneBy(['email' => $data['email']])) {
             return new JsonResponse(['error' => 'Cet utilisateur existe déjà.'], JsonResponse::HTTP_CONFLICT);
         }
 
@@ -36,7 +36,7 @@ class UserController extends AbstractController
         }
 
         $user = new Patient();
-        $user->setUsername($data['username'])
+        $user->setEmail($data['email'])
             ->setNom($data['nom'])
             ->setPrenom($data['prenom'])
             ->setRoles(['ROLE_PATIENT'])
@@ -68,11 +68,11 @@ class UserController extends AbstractController
     ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
-        if (!isset($data['username'], $data['password'], $data['nom'], $data['prenom'], $data['num_rpps'])) {
+        if (!isset($data['email'], $data['password'], $data['nom'], $data['prenom'], $data['num_rpps'])) {
             return new JsonResponse(['error' => "Tous les champs sont requis."], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        if ($entityManager->getRepository(Medecin::class)->findOneBy(['username' => $data['username']])) {
+        if ($entityManager->getRepository(Medecin::class)->findOneBy(['email' => $data['email']])) {
             return new JsonResponse(['error' => 'Cet utilisateur existe déjà.'], JsonResponse::HTTP_CONFLICT);
         }
 
@@ -81,7 +81,7 @@ class UserController extends AbstractController
         }
 
         $user = new Medecin();
-        $user->setUsername($data['username'])
+        $user->setEmail($data['email'])
             ->setNom($data['nom'])
             ->setPrenom($data['prenom'])
             ->setRoles(['ROLE_MEDECIN'])
