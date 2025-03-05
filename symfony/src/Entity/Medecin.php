@@ -18,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Medecin implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\Column(type: 'string')]
     private ?string $num_rpps = null;
 
     #[ORM\Column(length: 255)]
