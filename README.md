@@ -51,7 +51,7 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 - **Paramètres JSON :**
   ```json
   {
-      "username": "medecin1",
+      "email": "medecin1",
       "password": "password123"
   }
   ```
@@ -63,7 +63,7 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
 ```json
 {
-    "username": "patient1",
+    "email": "patient1",
     "password": "password123",
     "nom": "DUPONT",
     "prenom": "Jean",
@@ -85,7 +85,7 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
 ```json
 {
-    "username": "test3",
+    "email": "test3",
     "password": "password123",
     "nom": "DURAND",
     "prenom": "Arthur",
