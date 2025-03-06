@@ -30,6 +30,7 @@ class Medecin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $num_tel = null;
 
+
     /**
      * @var Collection<int, Patient>
      */
@@ -53,7 +54,16 @@ class Medecin implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $specialite = null;
-    
+   
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName', nullable: true)]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
     public function __construct()
     {
         $this->patients = new ArrayCollection();
@@ -226,5 +236,29 @@ class Medecin implements UserInterface, PasswordAuthenticatedUserInterface
         $this->specialite = $specialite;
 
         return $this;
+    }
+
+    // Getters et setters pour l'image
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile) {
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 }
