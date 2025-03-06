@@ -39,7 +39,6 @@ class UserController extends AbstractController
         $user->setEmail($data['email'])
             ->setNom($data['nom'])
             ->setPrenom($data['prenom'])
-            ->setRoles(['ROLE_PATIENT'])
             ->setNumSecuSociale($data['num_secu_sociale'])
             ->setSexe($data['sexe'] === 'homme' ? Sexe::HOMME : Sexe::FEMME)
             ->setPassword($passwordHasher->hashPassword($user, $data['password']));
@@ -84,7 +83,6 @@ class UserController extends AbstractController
         $user->setEmail($data['email'])
             ->setNom($data['nom'])
             ->setPrenom($data['prenom'])
-            ->setRoles(['ROLE_MEDECIN'])
             ->setNumRpps($data['num_rpps'])
             ->setPassword($passwordHasher->hashPassword($user, $data['password']));
 

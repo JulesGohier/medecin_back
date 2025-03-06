@@ -3,6 +3,7 @@ namespace App\Security;
 
 use App\Entity\Medecin;
 use App\Entity\Patient;
+use App\Entity\Admin;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,21 +16,25 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\MedecinRepository;
 use App\Repository\PatientRepository;
+use App\Repository\AdminRepository;
 
 class CustomAuthenticator extends JsonLoginAuthenticator
 {
     private JWTTokenManagerInterface $jwtManager;
     private MedecinRepository $medecinRepository;
     private PatientRepository $patientRepository;
-    
+    private AdminRepository $adminRepository;
+
     public function __construct(
         JWTTokenManagerInterface $jwtManager,
         MedecinRepository $medecinRepository,
-        PatientRepository $patientRepository
+        PatientRepository $patientRepository,
+        AdminRepository $adminRepository
     ) {
         $this->jwtManager = $jwtManager;
         $this->medecinRepository = $medecinRepository;
         $this->patientRepository = $patientRepository;
+        $this->adminRepository = $adminRepository;
     }
 
     public function authenticate(Request $request): Passport
@@ -42,6 +47,12 @@ class CustomAuthenticator extends JsonLoginAuthenticator
 
         return new Passport(
             new UserBadge($credentials['email'], function ($email) {
+
+                $admin = $this->adminRepository->findOneBy(['email' => $email]);
+                if ($admin) {
+                    return $admin;
+                }
+
                 // Rechercher d'abord un médecin
                 $medecin = $this->medecinRepository->findOneBy(['email' => $email]);
                 if ($medecin) {
@@ -90,13 +101,14 @@ class CustomAuthenticator extends JsonLoginAuthenticator
                     'antecedent' => $user->getAntecedent(),
                     'date_naissance' => $user->getDateNaissance()?->format('Y-m-d'),
                     'email' => $user->getEmail(),
-                    'email' => $user->getEmail(),
                     'rendez_vous' => array_map(fn($rdv) => [
                         'id' => $rdv->getId(),
                         'date' => $rdv->getDate()->format('Y-m-d H:i:s'),
                     ], $user->getRdv()->toArray())
                 ],
             ]);
+        } elseif ($user instanceof Admin) {
+            $id = $user->getId();
         }
 
         return new JsonResponse([

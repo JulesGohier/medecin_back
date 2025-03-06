@@ -51,7 +51,7 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 - **Paramètres JSON :**
   ```json
   {
-      "email": "medecin1",
+      "email": "medecin1@medecin.com",
       "password": "password123"
   }
   ```
@@ -63,15 +63,15 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
 ```json
 {
-    "email": "patient1",
+
+    "email": "jean.dupont@gmail.com",
     "password": "password123",
     "nom": "DUPONT",
     "prenom": "Jean",
     "sexe": "homme",
     "num_tel": "0789686352",
     "date_naissance": "2004-04-06",
-    "num_secu_sociale": "125235438241",
-    "email": "jean.dupont@gmail.com"
+    "num_secu_sociale": "125235438241"
 }
 ```
 
@@ -85,13 +85,13 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
 ```json
 {
-    "email": "test3",
+
+    "email": "arthur.durand@medecin.com",
     "password": "password123",
     "nom": "DURAND",
     "prenom": "Arthur",
     "num_rpps": "018254763",
-    "num_tel": "0612345678",
-    "email": "arthur.durand@medecin.com"
+    "num_tel": "0612345678"
 }
 ```
 

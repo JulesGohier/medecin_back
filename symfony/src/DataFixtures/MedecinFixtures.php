@@ -25,8 +25,7 @@ class MedecinFixtures extends Fixture
                  ->setNumTel("0123456789")
                  ->SetEmail("medecin1@medecin.com")
                  ->setSpecialite("Medecin Généraliste")
-                 ->setPassword($this->passwordEncoder->hashPassword($medecin1, 'password123'))
-                 ->setRoles(['ROLE_ADMIN']);
+                 ->setPassword($this->passwordEncoder->hashPassword($medecin1, 'password123'));
 
         $medecin2 = new Medecin();
         $medecin2->setNom("Martin")
@@ -35,8 +34,7 @@ class MedecinFixtures extends Fixture
                  ->setNumTel("0987654321")
                  ->SetEmail("medecin2@medecin.com")
                  ->setSpecialite("Ostéopathe")
-                 ->setPassword($this->passwordEncoder->hashPassword($medecin2, 'password123'))
-                 ->setRoles(['ROLE_MEDECIN']);
+                 ->setPassword($this->passwordEncoder->hashPassword($medecin2, 'password123'));
 
         $medecin3 = new Medecin();
         $medecin3->setNom("Lemoine")
@@ -45,9 +43,8 @@ class MedecinFixtures extends Fixture
                  ->setNumTel("0147258364")
                  ->SetEmail("medecin3@medecin.com")
                  ->setSpecialite("Ostéopathe")
-                 ->setPassword($this->passwordEncoder->hashPassword($medecin3, 'password123'))
-                 ->setRoles(['ROLE_MEDECIN']);
-
+                 ->setPassword($this->passwordEncoder->hashPassword($medecin3, 'password123'));
+                 
         // Persist each Medecin
         $manager->persist($medecin1);
         $manager->persist($medecin2);

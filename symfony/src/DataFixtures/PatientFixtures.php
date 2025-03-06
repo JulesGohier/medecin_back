@@ -37,8 +37,7 @@ class PatientFixtures extends Fixture
                  ->setNumTel("0601020304")
                  ->setDateNaissance(new \DateTime('1990-05-15'))
                  ->SetEmail("patient1@patient.com")
-                 ->setPassword($this->passwordEncoder->hashPassword($patient1, 'password123'))
-                 ->setRoles(['ROLE_PATIENT']);
+                 ->setPassword($this->passwordEncoder->hashPassword($patient1, 'password123'));
 
         $patient2 = new Patient();
         $patient2->setNom("Lefevre")
@@ -49,8 +48,7 @@ class PatientFixtures extends Fixture
                  ->setNumTel("0612345678")
                  ->setDateNaissance(new \DateTime('1985-11-22'))
                  ->SetEmail("patient2@patient.com")
-                 ->setPassword($this->passwordEncoder->hashPassword($patient2, 'password123'))
-                 ->setRoles(['ROLE_PATIENT']);
+                 ->setPassword($this->passwordEncoder->hashPassword($patient2, 'password123'));
 
         $patient3 = new Patient();
         $patient3->setNom("Bertin")
@@ -61,8 +59,7 @@ class PatientFixtures extends Fixture
                  ->setNumTel("0623456789")
                  ->setDateNaissance(new \DateTime('1992-01-30'))
                  ->SetEmail("patient3@patient.com")
-                 ->setPassword($this->passwordEncoder->hashPassword($patient3, 'password123'))
-                 ->setRoles(['ROLE_PATIENT']);
+                 ->setPassword($this->passwordEncoder->hashPassword($patient3, 'password123'));
 
         // Persister les patients
         $manager->persist($patient1);

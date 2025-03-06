@@ -15,9 +15,14 @@ security:
                 class: App\Entity\Medecin
                 property: email
 
+        app_admin_provider:
+            entity:
+                class: App\Entity\Admin
+                property: email
+
         app_users:
             chain:
-                providers: ['app_patient_provider', 'app_medecin_provider']
+                providers: ['app_patient_provider', 'app_medecin_provider', 'app_admin_provider']
     #    api_user_provider:
      #       entity:
       #          class: App\Entity\User
