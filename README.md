@@ -63,7 +63,6 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
 ```json
 {
-
     "email": "jean.dupont@gmail.com",
     "password": "password123",
     "nom": "DUPONT",
@@ -85,13 +84,13 @@ Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
 ```json
 {
-
     "email": "arthur.durand@medecin.com",
     "password": "password123",
     "nom": "DURAND",
     "prenom": "Arthur",
     "num_rpps": "018254763",
-    "num_tel": "0612345678"
+    "num_tel": "0612345678",
+    "specialite": "Médecin Généraliste"
 }
 ```
 
