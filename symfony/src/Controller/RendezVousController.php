@@ -23,7 +23,7 @@ class RendezVousController extends AbstractController
         }
 
         // Récupérer tous les rendez-vous du patient
-        $rendezVous = $rdvRepository->findBy(['num_secu_sociale_patient' => $patient]);
+        $rendezVous = $rdvRepository->findRdvByPatient($patient);
 
         // Retourner les rendez-vous en format JSON
         return $this->json($rendezVous);
@@ -41,7 +41,7 @@ class RendezVousController extends AbstractController
         }
 
         // Récupérer tous les rendez-vous du médecin
-        $rendezVous = $rdvRepository->findBy(['rpps_medecin' => $medecin]);
+        $rendezVous = $rdvRepository->findRdvByMedecin($medecin);
 
         return $this->json($rendezVous);
     }
