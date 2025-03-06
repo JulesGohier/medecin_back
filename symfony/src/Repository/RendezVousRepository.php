@@ -38,6 +38,19 @@ class RendezVousRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findProchainRdvByPatient(Patient $patient)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.num_secu_sociale_patient = :patient')
+            ->andWhere('r.date >= :now')
+            ->setParameter('patient', $patient)
+            ->setParameter('now', new \DateTime())
+            ->orderBy('r.date', 'ASC')
+            ->setMaxResults(1) // Récupérer uniquement le prochain rendez-vous
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
 //    /**
 //     * @return RendezVous[] Returns an array of RendezVous objects

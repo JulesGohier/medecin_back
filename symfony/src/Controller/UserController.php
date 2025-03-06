@@ -73,7 +73,7 @@ class UserController extends AbstractController
 
         // Vérification que toutes les données requises sont présentes
         if (!isset($data['email'], $data['password'], $data['nom'], $data['prenom'], $data['num_rpps'], $data['specialite'])) {
-            return new JsonResponse(['error' => "Les champs email, password, prenom, num_rpps et specialite sont requis."], JsonResponse::HTTP_BAD_REQUEST);
+            return new JsonResponse(['error' => "Les champs email, password, nom, prenom, num_rpps et specialite sont requis."], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         // Vérifier si l'email ou le numéro RPPS existe déjà
