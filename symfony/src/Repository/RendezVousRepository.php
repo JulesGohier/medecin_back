@@ -34,7 +34,9 @@ class RendezVousRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->andWhere('r.num_secu_sociale_patient = :patient')
             ->setParameter('patient', $patient)
-            ->orderBy('r.date', 'ASC')
+            ->orderBy('CASE WHEN r.state = :reserved THEN 0 ELSE 1 END', 'ASC')  // Prioriser les rdv avec état "RESERVE"
+            ->addOrderBy('r.date', 'ASC')  // Trier ensuite par date
+            ->setParameter('reserved', State::RESERVE)  // État "RESERVE"
             ->getQuery()
             ->getResult();
     }
