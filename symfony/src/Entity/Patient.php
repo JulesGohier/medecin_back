@@ -31,7 +31,7 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Sexe $sexe = null;
 
     #[ORM\ManyToOne(targetEntity: Medecin::class, inversedBy: 'patients')]
-    #[ORM\JoinColumn(name: 'medecin_perso_num_rpps', referencedColumnName: 'num_rpps', nullable: true)]
+    #[ORM\JoinColumn(name: 'medecin_perso', referencedColumnName: 'num_rpps', nullable: true)]
     private ?Medecin $medecin_perso = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]

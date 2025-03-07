@@ -19,8 +19,8 @@ class MedecinFixtures extends Fixture
     {
         // Création de 3 médecins
         $medecin1 = new Medecin();
-        $medecin1->setNom("admin")
-                 ->setPrenom("admin")
+        $medecin1->setNom("Jean")
+                 ->setPrenom("Dupont")
                  ->setNumRpps("123456789012")
                  ->setNumTel("0123456789")
                  ->SetEmail("medecin1@medecin.com")

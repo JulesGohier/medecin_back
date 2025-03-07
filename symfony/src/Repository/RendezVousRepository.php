@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\RendezVous;
 use App\Entity\Medecin;
 use App\Entity\Patient;
+use App\Enum\State;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,15 +39,17 @@ class RendezVousRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findProchainRdvByPatient(Patient $patient)
+    public function findProchainRdvByPatient(Patient $patient): ?RendezVous
     {
         return $this->createQueryBuilder('r')
             ->where('r.num_secu_sociale_patient = :patient')
             ->andWhere('r.date >= :now')
+            ->andWhere('r.state != :annule')  // Exclure les rendez-vous annulés
             ->setParameter('patient', $patient)
             ->setParameter('now', new \DateTime())
+            ->setParameter('annule', State::ANNULE->value) // Utiliser ->value si State est une Enum PHP 8
             ->orderBy('r.date', 'ASC')
-            ->setMaxResults(1) // Récupérer uniquement le prochain rendez-vous
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
