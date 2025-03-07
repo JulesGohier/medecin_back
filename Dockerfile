@@ -5,7 +5,8 @@ git \
 zip \
 unzip \
 libpq-dev \
-netcat-openbsd
+netcat-openbsd \
+cron
 
 RUN docker-php-ext-install pdo pdo_pgsql
 
