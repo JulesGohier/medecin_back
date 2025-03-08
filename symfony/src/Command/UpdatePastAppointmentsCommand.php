@@ -26,9 +26,8 @@ class UpdatePastAppointmentsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $now = new \DateTime();
+        $now = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
-        // Récupérer les rendez-vous passés qui ne sont pas annulés
         $rendezVousRepository = $this->entityManager->getRepository(RendezVous::class);
         $rendezVousPasses = $rendezVousRepository->createQueryBuilder('r')
             ->where('r.date < :now')
