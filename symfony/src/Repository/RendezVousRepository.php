@@ -46,15 +46,18 @@ class RendezVousRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->where('r.num_secu_sociale_patient = :patient')
             ->andWhere('r.date >= :now')
-            ->andWhere('r.state != :annule')  // Exclure les rendez-vous annulés
+            ->andWhere('r.state != :annule') // Exclure les rendez-vous annulés
+            ->andWhere('r.state != :passe')
             ->setParameter('patient', $patient)
             ->setParameter('now', new \DateTime())
-            ->setParameter('annule', State::ANNULE->value) // Utiliser ->value si State est une Enum PHP 8
+            ->setParameter('annule', State::ANNULE->value)  // Utiliser ->value si State est une Enum PHP 8
+            ->setParameter('passe', State::PASSE->value)
             ->orderBy('r.date', 'ASC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
+
 
 
 //    /**
