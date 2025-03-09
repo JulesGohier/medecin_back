@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 #[Route('/api', name: 'api_')]
 class UserController extends AbstractController
@@ -24,7 +25,7 @@ class UserController extends AbstractController
 
         $data = json_decode($request->getContent(), true);
 
-        if (!isset($data['email'], $data['password'], $data['nom'], $data['prenom'], $data['num_secu_sociale'], $data['sexe'])) {
+        if (!isset($data['email'], $data['password'], $data['nom'], $data['prenom'], $data['num_secu_sociale'], $data['sexe'], $data['medecin_perso'])) {
             return new JsonResponse(['error' => "Les champs email, password, nom, prenom, num_secu_sociale et sexe sont requis."], JsonResponse::HTTP_BAD_REQUEST);
         } 
 
@@ -36,12 +37,17 @@ class UserController extends AbstractController
             return new JsonResponse(['error' => "Ce numéro de sécurité sociale est déjà utilisé."], JsonResponse::HTTP_CONFLICT);
         }
 
+        if (!$entityManager->getRepository(Medecin::class)->findOneBy(['num_rpps' => $data['medecin_perso']])){
+            return new JsonResponse(['error' => 'Aucun medecin avec ce numéro RPPS enregistré'], JsonResponse::HTTP_CONFLICT);
+        }
+
         $user = new Patient();
         $user->setEmail($data['email'])
             ->setNom($data['nom'])
             ->setPrenom($data['prenom'])
             ->setNumSecuSociale($data['num_secu_sociale'])
-            ->setSexe($data['sexe'] === 'homme' ? Sexe::HOMME : Sexe::FEMME)
+            ->setSexe(match ($data['sexe']) {'homme' => Sexe::HOMME, 'femme' => Sexe::FEMME, default => Sexe::AUTRE })            
+            ->setMedecinPerso($entityManager->getRepository(Medecin::class)->findOneBy(['num_rpps' => $data['medecin_perso']]))
             ->setPassword($passwordHasher->hashPassword($user, $data['password']));
 
 
@@ -51,6 +57,9 @@ class UserController extends AbstractController
         }
         if (isset($data['date_naissance'])) {
             $user->setDateNaissance(new \DateTime($data['date_naissance']));
+        }
+        if (isset($data['antecedent'])) {
+            $user->setAntecedent($data['antecedent']);
         }
 
         $entityManager->persist($user);
