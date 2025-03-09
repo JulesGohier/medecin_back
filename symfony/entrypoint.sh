@@ -7,6 +7,7 @@ while ! nc -z postgres 5432; do
 done
 echo "✅ PostgreSQL est prêt !"
 
+composer install
 php bin/console doctrine:migrations:migrate --no-interaction
 php bin/console lexik:jwt:generate-keypair
 
