@@ -7,7 +7,6 @@ use App\Repository\RendezVousRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use App\Enum\Role;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: RendezVousRepository::class)]
@@ -33,8 +32,8 @@ class RendezVous
     #[ORM\Column(enumType: State::class)]
     private ?State $state = null;
 
-    #[ORM\Column(length: 50, nullable: true, enumType: Role::class)]
-    private ?Role $annulé_par = null;
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $annule_par = null;
 
     public function getId(): ?int
     {
@@ -89,14 +88,14 @@ class RendezVous
         return $this;
     }
 
-    public function getAnnuléPar(): ?string
+    public function getAnnulePar(): ?string
     {
-        return $this->annulé_par;
+        return $this->annule_par;
     }
 
-    public function setAnnuléPar(?string $annulé_par): static
+    public function setAnnulePar(?string $annule_par): static
     {
-        $this->annulé_par = $annulé_par;
+        $this->annule_par = $annule_par;
 
         return $this;
     }
