@@ -33,10 +33,21 @@ services:
     container_name: symfony
     volumes:
       - ./symfony:/var/www/symfony
-    ports:
-      - "9000:9000"
     depends_on:
       - postgres
+    networks:
+      - my_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "9000:80"
+    volumes:
+      - ./symfony:/var/www/symfony
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - symfony
     networks:
       - my_network
 

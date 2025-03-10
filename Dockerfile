@@ -25,4 +25,4 @@ RUN chown -R www-data:www-data var/ \
 EXPOSE 9000
 
 ENTRYPOINT ["/var/www/symfony/entrypoint.sh"]
-CMD ["php-fpm", "-F"]
+CMD ["php-fpm"]
