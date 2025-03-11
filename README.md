@@ -1,7 +1,5 @@
 # API Documentation
 
-# API Documentation
-
 ## Description
 
 Cette application de gestion de cabinet médical permet de gérer les patients, les médecins et les rendez-vous. Elle offre une API RESTful pour effectuer des opérations CRUD (Créer, Lire, Mettre à jour, Supprimer) sur les patients, les médecins et les rendez-vous. L'application utilise Symfony pour le backend et PostgreSQL pour la base de données. Elle inclut également des fonctionnalités d'authentification et d'inscription pour les utilisateurs.
