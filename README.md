@@ -1,5 +1,46 @@
 # API Documentation
 
+# API Documentation
+
+## Description
+
+Cette application de gestion de cabinet médical permet de gérer les patients, les médecins et les rendez-vous. Elle offre une API RESTful pour effectuer des opérations CRUD (Créer, Lire, Mettre à jour, Supprimer) sur les patients, les médecins et les rendez-vous. L'application utilise Symfony pour le backend et PostgreSQL pour la base de données. Elle inclut également des fonctionnalités d'authentification et d'inscription pour les utilisateurs.
+
+## Installation
+
+1. Clonez le dépôt :
+   ```sh
+   git clone https://github.com/JulesGohier/medecin_back
+   ```
+2. Accédez au répertoire du projet :
+   ```sh
+   cd symfony
+   ```
+3. Lancement des conteneurs :
+   ```sh
+   docker compose up -d
+   ```
+
+### Les differentes URL
+
+- pgAdmin :
+
+```sh
+http://localhost:8080
+```
+
+- Symfony :
+
+```sh
+http://localhost:9000
+```
+
+- Api :
+
+```sh
+http://localhost:9000/api
+```
+
 ## Création de fausses données
 
 Pour générer des fausses données dans l'application, suivez les étapes suivantes :
@@ -24,116 +65,137 @@ Pour accéder à pgAdmin, suivez les étapes suivantes :
 
 1. Accédez à pgAdmin via l'URL suivante : [http://localhost:8080](http://localhost:8080)
 2. Utilisez les identifiants suivants pour vous connecter :
-  - **Login** : `admin@admin.com`
-  - **Mot de passe** : `admin`
+
+- **Login** : `admin@admin.com`
+- **Mot de passe** : `admin`
 
 ### Ajouter un serveur dans pgAdmin
 
 1. Cliquez sur "Ajouter un nouveau serveur".
 2. Remplissez les champs comme suit :
-  - **Nom** : Choisissez un nom (exemple : `MonServeur`)
-  - **Nom d'hôte** : `postgres`
-  - **Port** : `5432`
-  - **Nom de la base de données** : `my_database`
-  - **Identifiant** : `admin`
-  - **Mot de passe** : `admin`
+
+- **Nom** : Choisissez un nom (exemple : `MonServeur`)
+- **Nom d'hôte** : `postgres`
+- **Port** : `5432`
+- **Nom de la base de données** : `my_database`
+- **Identifiant** : `admin`
+- **Mot de passe** : `admin`
+
 3. Validez pour enregistrer le serveur.
 
 Vous êtes maintenant connecté à votre base de données via pgAdmin.
 
+## API Documentation
 
+### Authentication
 
-## Authentication
+#### Login Token
 
-### Login Token
 **POST** `api/login_token`
+
 - Authentification d'un utilisateur.
 - **Paramètres JSON :**
   ```json
   {
-      "email": "medecin1@medecin.com",
-      "password": "password123"
+    "email": "medecin1@medecin.com",
+    "password": "password123"
   }
   ```
 
-## Register Patient  
-**POST** `api/register/patient`  
-- Inscription d'un utilisateur de type **Patient**.  
-- **Paramètres JSON :**  
+### Register Patient
+
+**POST** `api/register/patient`
+
+- Inscription d'un utilisateur de type **Patient**.
+- **Paramètres JSON :**
 
 ```json
 {
-    "email": "jean.dupont@gmail.com",
-    "password": "password123",
-    "nom": "DUPONT",
-    "prenom": "Jean",
-    "sexe": "homme",
-    "num_tel": "0789686352",
-    "date_naissance": "2004-04-06",
-    "num_secu_sociale": "125235438241"
+  "email": "jean.dupont@gmail.com",
+  "password": "password123",
+  "nom": "DUPONT",
+  "prenom": "Jean",
+  "sexe": "homme",
+  "num_tel": "0789686352",
+  "date_naissance": "2004-04-06",
+  "num_secu_sociale": "125235438241"
 }
 ```
 
 ---
 
-## Register Médecin  
-**POST** `api/register/medecin`  
-- Inscription d'un utilisateur de type **Médecin**.  
+### Register Médecin
+
+**POST** `api/register/medecin`
+
+- Inscription d'un utilisateur de type **Médecin**.
 - Accessible seulement avec le role **Admin**
-- **Paramètres JSON :**  
+- **Paramètres JSON :**
 
 ```json
 {
-    "email": "arthur.durand@medecin.com",
-    "password": "password123",
-    "nom": "DURAND",
-    "prenom": "Arthur",
-    "num_rpps": "018254763",
-    "num_tel": "0612345678",
-    "specialite": "Médecin Généraliste"
+  "email": "arthur.durand@medecin.com",
+  "password": "password123",
+  "nom": "DURAND",
+  "prenom": "Arthur",
+  "num_rpps": "018254763",
+  "num_tel": "0612345678",
+  "specialite": "Médecin Généraliste"
 }
 ```
 
-## Patients
+### Patients
 
-### Récupérer tous les patients
+#### Récupérer tous les patients
+
 **GET** `api/patients`
+
 - Renvoie la liste de tous les patients.
 
-### Ajouter un patient
+#### Ajouter un patient
+
 **POST** `api/patients`
+
 - Ajoute un nouveau patient.
 
-### Récupérer un patient par numéro de sécurité sociale
+#### Récupérer un patient par numéro de sécurité sociale
+
 **GET** `api/patients/{num_secu_sociale}`
+
 - Renvoie les informations du patient correspondant.
 
-### Supprimer un patient
+#### Supprimer un patient
+
 **DELETE** `api/patients/{num_secu_sociale}`
+
 - Supprime le patient correspondant.
 
-### Modifier un patient
+#### Modifier un patient
+
 **PATCH** `api/patients/{num_secu_sociale}`
+
 - Modifie les informations d'un patient.
 - **Paramètres JSON :**
   ```json
   {
-      "nom": "Durant",
-      "numtel": "0124367859"
+    "nom": "Durant",
+    "numtel": "0124367859"
   }
   ```
 
-## Médecins
+### Médecins
+
 Les mêmes opérations que pour `api/patients` s'appliquent à `api/medecins`.
 
-## Rendez-vous
+### Rendez-vous
+
 Les mêmes opérations que pour `api/patients` s'appliquent à `api/rendez_vouses`.
 
-# Nouvelles Routes pour les Rendez-vous
+## Nouvelles Routes pour les Rendez-vous
 
-## Récupérer les rendez-vous d'un patient par son numéro de sécurité sociale
+### Récupérer les rendez-vous d'un patient par son numéro de sécurité sociale
 
-### GET `api/rendez_vouses/patient/{num_secu_sociale}`
+#### GET `api/rendez_vouses/patient/{num_secu_sociale}`
 
 Renvoie l'ensemble des rendez-vous associés à un patient donné.
 
@@ -145,23 +207,23 @@ Renvoie l'ensemble des rendez-vous associés à un patient donné.
 
 ```json
 [
-    {
-        "id": 1,
-        "date": "2025-03-10T10:00:00",
-        "medecin": {
-            "id": 1,
-            "nom": "Lemoine",
-            "prenom": "Luc"
-        }
+  {
+    "id": 1,
+    "date": "2025-03-10T10:00:00",
+    "medecin": {
+      "id": 1,
+      "nom": "Lemoine",
+      "prenom": "Luc"
     }
+  }
 ]
 ```
 
 ---
 
-## Récupérer les rendez-vous d'un médecin par son numéro RPPS
+### Récupérer les rendez-vous d'un médecin par son numéro RPPS
 
-### GET `api/rendez_vouses/medecin/{num_rpps}`
+#### GET `api/rendez_vouses/medecin/{num_rpps}`
 
 Renvoie l'ensemble des rendez-vous pris auprès d'un médecin spécifique.
 
@@ -173,15 +235,15 @@ Renvoie l'ensemble des rendez-vous pris auprès d'un médecin spécifique.
 
 ```json
 [
-    {
-        "id": 1,
-        "date": "2025-03-10T10:00:00",
-        "patient": {
-            "id": 1,
-            "nom": "DUPONT",
-            "prenom": "Jean"
-        }
+  {
+    "id": 1,
+    "date": "2025-03-10T10:00:00",
+    "patient": {
+      "id": 1,
+      "nom": "DUPONT",
+      "prenom": "Jean"
     }
+  }
 ]
 ```
 
