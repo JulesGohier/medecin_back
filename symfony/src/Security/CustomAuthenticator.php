@@ -98,7 +98,6 @@ class CustomAuthenticator extends JsonLoginAuthenticator
                     'sexe' => $user->getSexe()?->value,
                     'medecin_perso' => $user->getMedecinPerso()?->getNumRpps(),
                     'num_tel' => $user->getNumTel(),
-                    'antecedent' => $user->getAntecedent(),
                     'date_naissance' => $user->getDateNaissance()?->format('Y-m-d'),
                     'email' => $user->getEmail(),
                     'rendez_vous' => array_map(fn($rdv) => [

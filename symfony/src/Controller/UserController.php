@@ -48,7 +48,7 @@ class UserController extends AbstractController
             ->setNumSecuSociale($data['num_secu_sociale'])
             ->setSexe(match ($data['sexe']) {'homme' => Sexe::HOMME, 'femme' => Sexe::FEMME, default => Sexe::AUTRE })            
             ->setMedecinPerso($entityManager->getRepository(Medecin::class)->findOneBy(['num_rpps' => $data['medecin_perso']]))
-            ->setPassword($passwordHasher->hashPassword($user, $data['password']));
+            ->setPassword($data['password']);
 
 
         // Autres champs
@@ -57,9 +57,6 @@ class UserController extends AbstractController
         }
         if (isset($data['date_naissance'])) {
             $user->setDateNaissance(new \DateTime($data['date_naissance']));
-        }
-        if (isset($data['antecedent'])) {
-            $user->setAntecedent($data['antecedent']);
         }
 
         $entityManager->persist($user);
@@ -101,7 +98,7 @@ class UserController extends AbstractController
             ->setPrenom($data['prenom'])
             ->setNumRpps($data['num_rpps'])
             ->setSpecialite($data['specialite'])
-            ->setPassword($passwordHasher->hashPassword($user, $data['password']));
+            ->setPassword($data['password']);
 
         // Si un fichier image est inclus dans la requête
         if ($imageFile) {

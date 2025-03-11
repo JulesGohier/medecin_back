@@ -37,9 +37,6 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $num_tel = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $antecedent = null;
-
     /**
      * @var Collection<int, RendezVous>
      */
@@ -135,17 +132,6 @@ class Patient implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAntecedent(): ?string
-    {
-        return $this->antecedent;
-    }
-
-    public function setAntecedent(?string $antecedent): static
-    {
-        $this->antecedent = $antecedent;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, RendezVous>

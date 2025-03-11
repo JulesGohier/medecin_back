@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250310122309 extends AbstractMigration
+final class Version20250311122427 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,7 +24,7 @@ final class Version20250310122309 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_880E0D76E7927C74 ON admin (email)');
         $this->addSql('CREATE TABLE medecin (num_rpps VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, specialite VARCHAR(255) NOT NULL, image_name VARCHAR(255) DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(num_rpps))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1BDA53C6E7927C74 ON medecin (email)');
-        $this->addSql('CREATE TABLE patient (num_secu_sociale VARCHAR(255) NOT NULL, medecin_perso VARCHAR(255) DEFAULT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, sexe VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, antecedent VARCHAR(255) DEFAULT NULL, date_naissance DATE DEFAULT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, PRIMARY KEY(num_secu_sociale))');
+        $this->addSql('CREATE TABLE patient (num_secu_sociale VARCHAR(255) NOT NULL, medecin_perso VARCHAR(255) DEFAULT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, sexe VARCHAR(255) NOT NULL, num_tel VARCHAR(255) DEFAULT NULL, date_naissance DATE DEFAULT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles JSON NOT NULL, PRIMARY KEY(num_secu_sociale))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1ADAD7EBE7927C74 ON patient (email)');
         $this->addSql('CREATE INDEX IDX_1ADAD7EBD6C24B63 ON patient (medecin_perso)');
         $this->addSql('CREATE TABLE rendez_vous (id SERIAL NOT NULL, rpps_medecin VARCHAR(255) NOT NULL, patient_num_secu_sociale VARCHAR(255) NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, state VARCHAR(255) NOT NULL, annule_par VARCHAR(50) DEFAULT NULL, PRIMARY KEY(id))');
