@@ -24,7 +24,6 @@ class AdminFixtures extends Fixture
         // Persist each Admin
         $manager->persist($admin1);
 
-        // Sauvegarde en base de données
         $manager->flush();
     }
 }

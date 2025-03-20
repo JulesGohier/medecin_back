@@ -49,10 +49,12 @@ services:
     depends_on:
       - symfony
     networks:
-      - my_network
+      - nginx_network
 
 networks:
   my_network:
+    driver: bridge
+  nginx_network:
     driver: bridge
 
 volumes:
