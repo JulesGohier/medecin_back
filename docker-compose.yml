@@ -37,6 +37,7 @@ services:
       - postgres
     networks:
       - my_network
+      - nginx_network
 
   nginx:
     image: nginx:alpine
